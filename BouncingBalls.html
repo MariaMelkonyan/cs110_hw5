@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<canvas id="canvas" width="1000" height="600" style="background: url('http://sandiegopooltablemover.com/Images/pool_table.gif')"></canvas>
+<script src = "jquery-3.1.1.min.js"></script>
+
+<script>
+	let canvas = document.getElementById("canvas");
+	let context = canvas.getContext("2d");
+    var img1 = new Image();
+  	img1.src = "https://i.imgur.com/G9zW2cV.png";
+	var img2 = new Image();
+	img2.src = "http://cliparts.co/cliparts/gce/Ee8/gceEe89oi.png";
+	var img3 = new Image();
+	img3.src = "https://cdn.pixabay.com/photo/2015/09/05/07/15/pool-ball-923826_960_720.png";
+	var img4 = new Image();
+	img4.src = "http://icons.iconarchive.com/icons/barkerbaggies/pool-ball/256/Ball-4-icon.png";
+	var img5 = new Image();
+	img5.src = "http://rs197.pbsrc.com/albums/aa107/mnbilliards/Fun%20Pix/Pool/5-Ball-Real.png~c200";
+	var img6 = new Image();
+	img6.src = "http://icons.iconarchive.com/icons/barkerbaggies/pool-ball/256/Ball-6-icon.png";
+
+
+let b1 = {img:img1, x:650, y:150, width:47, heigth:47, xd: 1, yd: 1};
+let b2 = {img:img2, x:626, y:190, width:49, heigth:49, xd: -1, yd: -1};
+let b3 = {img:img3, x:674, y:191, width:45, heigth:45, xd: 1, yd: 0.4};
+let b4 = {img:img4, x:602, y:228, width:50, heigth:50, xd: 0.5, yd: 1};
+let b5 = {img:img5, x:650, y:232, width:45, heigth:45, xd: -1, yd: 1};
+let b6 = {img:img6, x:693, y:230, width:49, heigth:49, xd: 1, yd: -1};
+    let images = [b1, b2, b3, b4, b5, b6];
+
+
+ const draw = function() {
+   	context.clearRect(0, 0, canvas.width, canvas.height);
+   
+	images.forEach(function(img) {
+   		context.drawImage(img.img, img.x, img.y, img.width, img.heigth);         
+        if (img.x < 30 || img.x > canvas.width - img.width - 40) {
+            	img.xd *= -1;
+        }
+        if (img.y < 35 || img.y > canvas.height - img.width - 40) {
+        	img.yd *= -1;
+        }
+        img.x += img.xd;
+        img.y += img.yd;
+    });
+};
+
+let animate = function() {
+    draw();
+    window.setTimeout(animate, 10);
+};
+
+$('canvas').on('click', function(){
+	animate();
+});
+
+img6.onload = function() {
+	draw();
+};
+
+	
+</script>
+</body>
+</html>
